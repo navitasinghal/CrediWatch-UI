@@ -28,6 +28,15 @@
   color: #61dafb;
 }
 
+.buttonGroup{
+  padding : 20px;
+  padding-top: 40px;
+}
+
+.btn{
+  padding :20px !important;
+  margin-left: 50px !important;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

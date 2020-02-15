@@ -1,0 +1,24 @@
+.inputBox {
+  padding: 6px;
+  margin: 5px;
+  padding-left: 15px;
+}
+
+.heading {
+  margin-top: 5% !important;
+  padding: 15px;
+}
+
+.MuiInput-underline:after {
+  border-bottom: white !important;
+}
+
+.MuiInput-underline:before {
+  border-bottom: white !important;
+}
+
+.button {
+    float: right;
+    margin: 15px;
+    padding: 10px;
+  }

@@ -1,25 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import NavBar from "./components/NavBar";
+import { Container, Grid, Button } from "@material-ui/core";
+import CustomerForm from "./components/CustomerForm";
+import UploadCsv from "./components/UploadCsv";
 
 function App() {
+  const [toggle, setToggle] = useState(true);
+
+  const handleToggle1 = () => {
+    setToggle(true);
+  };
+  const handleToggle2 = () => {
+    setToggle(false);
+  };
+
+  function ButtonHandle() {
+    if (toggle) {
+      return <CustomerForm />;
+    }
+    return <UploadCsv />;
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <NavBar />
+      <Container>
+        <Grid container spacing={3} className="buttonGroup">
+          <Grid item xs={12} sm={6}>
+            <Button
+              variant="contained"
+              color="primary"
+              className="btn"
+              onClick={handleToggle1}
+            >
+              Loan Prediction
+            </Button>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Button
+              variant="contained"
+              color="primary"
+              className="btn"
+              onClick={handleToggle2}
+            >
+              Loan Prediction With Tenure
+            </Button>
+          </Grid>
+        </Grid>
+        <ButtonHandle/>
+      </Container>
+    </React.Fragment>
   );
 }
 
