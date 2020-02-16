@@ -7,7 +7,7 @@ import {
   Avatar
 } from "@material-ui/core";
 import axios from "axios";
-
+import { GET_SESSION } from "../shared/urls";
 export default class Login extends Component {
   constructor(props) {
     super(props);
@@ -20,8 +20,6 @@ export default class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  GET_SESSION = "http://localhost:5000/sessions";
-
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -33,7 +31,7 @@ export default class Login extends Component {
 
     axios
       .post(
-        this.GET_SESSION,
+        GET_SESSION,
         {
           user: {
             email: email,

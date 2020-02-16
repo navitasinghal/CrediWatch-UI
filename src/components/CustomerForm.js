@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
+import Alert from "@material-ui/lab/Alert";
+import {POST_CUSTOMER_DATA} from "../shared/urls";
 import {
   Typography,
   InputBase,
@@ -43,11 +45,12 @@ function CustomerForm() {
     registred_office_address: "jayanagar, bangalore",
     email: ""
   });
-  const [open, setOpen] = React.useState(false);
-  const POST_CUSTOMER_DATA = "http://localhost:5000/consumerData"
+  const [open, setOpen] = useState(false);
+  const [result, setResult] = useState("");
+ 
   const inputHandler = event => {
     setState({
-        ...state,
+      ...state,
       [event.target.name]: event.target.value
     });
     console.log("Input value: ", event.target.value);
@@ -57,15 +60,39 @@ function CustomerForm() {
     setOpen(true);
   };
 
-  const submitData = () =>{
-      setOpen(false);
-      axios.post(POST_CUSTOMER_DATA, state )
-      .then(res => {
-        console.log(res);
-      })
-    //   console.log(state);
-  }
+  const SubmitData = () => {
+    setOpen(false);
 
+    axios.post(POST_CUSTOMER_DATA, state).then(res => {
+      console.log("Reached here", res);
+      var result = res.data;
+      setResult(result);
+    });
+  };
+
+  const ShowResult = () => {
+    if (result === "") {
+      return (
+        <Alert className="alert" severity="info">
+          {" "}
+          Check it out!
+        </Alert>
+      );
+    }
+    if (result === " YES") {
+      return (
+        <Alert className="alert" severity="success">
+          {result} , You are Eligible for a loan!
+        </Alert>
+      );
+    } else {
+      return (
+        <Alert className="alert" severity="error">
+          {result} , You are not Eligible for a loan
+        </Alert>
+      );
+    }
+  };
   const handleClose = () => {
     setOpen(false);
   };
@@ -73,7 +100,7 @@ function CustomerForm() {
   return (
     <React.Fragment>
       <Typography variant="h4" gutterBottom className="heading">
-        Please fill in your details
+        Please fill in your details for Loan Prediction
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={4}>
@@ -83,7 +110,6 @@ function CustomerForm() {
               required
               id="cin"
               name="cin"
-              type="number"
               fullWidth
               autoComplete="cin"
               value={state.cin}
@@ -296,6 +322,7 @@ function CustomerForm() {
               required
               id="activity_code"
               name="activity_code"
+              type="number"
               fullWidth
               autoComplete="activity_code"
               value={state.activity_code}
@@ -331,6 +358,7 @@ function CustomerForm() {
           Submit
         </Button>
       </Grid>
+      <ShowResult />
       <Dialog
         open={open}
         onClose={handleClose}
@@ -342,16 +370,19 @@ function CustomerForm() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          You agree that if we transfer ownership or management of the data collected to a third party oraginsation for better credit risk evaluation 
-          we may also transfer your Personal Information and any other data or information you have provided to us to such third party,
-          provided such third party agrees to observe this Privacy Policy.
+            You agree that if we transfer ownership or management of the data
+            collected to a third party oraginsation for better credit risk
+            evaluation we may also transfer your Personal Information and any
+            other data or information you have provided to us to such third
+            party, provided such third party agrees to observe this Privacy
+            Policy.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Disagree
           </Button>
-          <Button onClick={submitData} color="primary" autoFocus>
+          <Button onClick={SubmitData} color="primary" autoFocus>
             Agree
           </Button>
         </DialogActions>

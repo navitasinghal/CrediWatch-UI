@@ -69,3 +69,7 @@ export const ActivityDescription = [
   "Insurance",
   "Manufacturing (Wood Products)"
 ];
+
+export const Grades = ["B", "A", "C", "D", "E", "F", "G"];
+
+export const LoanStatus = ["Fully Paid ", "Charged Off", "Current"];

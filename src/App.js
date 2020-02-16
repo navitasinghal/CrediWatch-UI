@@ -3,7 +3,7 @@ import "./App.css";
 import NavBar from "./components/NavBar";
 import { Container, Grid, Button } from "@material-ui/core";
 import CustomerForm from "./components/CustomerForm";
-import UploadCsv from "./components/UploadCsv";
+import LoanRecommendation from "./components/LoanRecommendation";
 
 function App() {
   const [toggle, setToggle] = useState(true);
@@ -19,7 +19,7 @@ function App() {
     if (toggle) {
       return <CustomerForm />;
     }
-    return <UploadCsv />;
+    return <LoanRecommendation/>;
   }
   return (
     <React.Fragment>
@@ -47,7 +47,7 @@ function App() {
             </Button>
           </Grid>
         </Grid>
-        <ButtonHandle/>
+        <ButtonHandle />
       </Container>
     </React.Fragment>
   );
