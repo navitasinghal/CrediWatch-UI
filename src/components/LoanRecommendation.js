@@ -24,41 +24,49 @@ function LoanRecommendation() {
     loan_status: "",
     int_rate: ""
   });
-  const [result, setResult] = useState("");
+  const [result, setResult] = useState({ result: [], plotX: [] , plotY:[]});
   const inputHandler = event => {
     setState({
       ...state,
       [event.target.name]: event.target.value
     });
+    console.log(state);
   };
 
   const handleSubmit = () => {
     axios.post(POST_DATA, state).then(res => {
-      console.log(res.data);
+      console.log("hello", res.data);
       setResult(res.data);
     });
   };
 
   const ShowResults = () => {
-    if (result === "") {
+    console.log(result);
+    if (result.result.length == 0) {
       return "";
-    } else {
-      return (
-        <Plot
-          data={[
-            {
-              x: [1, 2, 3],
-              y: [2, 6, 3],
-              type: "scatter",
-              mode: "lines+markers",
-              marker: { color: "red" }
-            },
-            { type: "bar", x: [1, 2, 3], y: [2, 5, 3] }
-          ]}
-          layout={{ width: 600, height: 440, title: "A Fancy Plot" }}
-        />
-      );
     }
+      
+      return (
+        <React.Fragment>
+          {result["result"].map(function(item, index) {
+            return <li key={index}>{item}</li>;
+          })
+          }{console.log(result.plotX[0], result.plotY[0])}
+          
+          <Plot
+            data={[
+              {
+                x: (result.plotX[0]),
+                y: (result.plotY[0]),
+                type: "bar",
+                // marker: { color: "red" }
+              },
+              // { type: "bar", x: (result.plotX[0]), y: (result.plotY[0]) }
+            ]}
+            layout={{ width: 600, height: 440, title: "Grade vs Frequency" }}
+          />
+        </React.Fragment>
+      );
   };
 
   return (
@@ -174,6 +182,7 @@ function LoanRecommendation() {
       >
         Submit
       </Button>
+      <ShowResults />
     </React.Fragment>
   );
 }
